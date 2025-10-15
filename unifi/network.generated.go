@@ -79,7 +79,7 @@ type Network struct {
 	GatewayDevice                                 string                          `json:"gateway_device"`         // (^$|^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$)
 	GatewayType                                   string                          `json:"gateway_type,omitempty"` // default|switch
 	IGMPFastleave                                 bool                            `json:"igmp_fastleave"`
-	IGMPForwardUnknownMulticast                   bool                            `json:"igmp_forward_unknown_multicast"`
+	IGMPFloodUnknownMulticast                     bool                            `json:"igmp_flood_unknown_multicast"`
 	IGMPGroupmembership                           int                             `json:"igmp_groupmembership,omitempty"` // [2-9]|[1-9][0-9]{1,2}|[1-2][0-9]{3}|3[0-5][0-9]{2}|3600|^$
 	IGMPMaxresponse                               int                             `json:"igmp_maxresponse,omitempty"`     // [1-9]|1[0-9]|2[0-5]|^$
 	IGMPMcrtrexpiretime                           int                             `json:"igmp_mcrtrexpiretime,omitempty"` // [0-9]|[1-9][0-9]{1,2}|[1-2][0-9]{3}|3[0-5][0-9]{2}|3600|^$
@@ -101,7 +101,7 @@ type Network struct {
 	IPSecIkeEncryption                            string                          `json:"ipsec_ike_encryption,omitempty"` // aes128|aes192|aes256|3des
 	IPSecIkeHash                                  string                          `json:"ipsec_ike_hash,omitempty"`       // sha1|md5|sha256|sha384|sha512
 	IPSecIkeLifetime                              string                          `json:"ipsec_ike_lifetime,omitempty"`   // ^(?:3[0-9]|[4-9][0-9]|[1-9][0-9]{2,3}|[1-7][0-9]{4}|8[0-5][0-9]{3}|86[0-3][0-9]{2}|86400)$
-	IPSecInterface                                string                          `json:"ipsec_interface,omitempty"`      // wan|wan2
+	IPSecInterface                                string                          `json:"ipsec_interface,omitempty"`      // wan[2-9]?
 	IPSecKeyExchange                              string                          `json:"ipsec_key_exchange,omitempty"`   // ikev1|ikev2
 	IPSecLocalIDentifier                          string                          `json:"ipsec_local_identifier,omitempty"`
 	IPSecLocalIDentifierEnabled                   bool                            `json:"ipsec_local_identifier_enabled"`
@@ -118,7 +118,7 @@ type Network struct {
 	IPV6ClientAddressAssignment                   string                          `json:"ipv6_client_address_assignment,omitempty"` // slaac|dhcpv6
 	IPV6InterfaceType                             string                          `json:"ipv6_interface_type,omitempty"`            // static|pd|single_network|none
 	IPV6PDAutoPrefixidEnabled                     bool                            `json:"ipv6_pd_auto_prefixid_enabled"`
-	IPV6PDInterface                               string                          `json:"ipv6_pd_interface,omitempty"` // wan|wan2
+	IPV6PDInterface                               string                          `json:"ipv6_pd_interface,omitempty"` // wan[2-9]?
 	IPV6PDPrefixid                                string                          `json:"ipv6_pd_prefixid"`            // ^$|[a-fA-F0-9]{1,4}
 	IPV6PDStart                                   string                          `json:"ipv6_pd_start,omitempty"`
 	IPV6PDStop                                    string                          `json:"ipv6_pd_stop,omitempty"`
@@ -135,7 +135,7 @@ type Network struct {
 	InternetAccessEnabled                         bool                            `json:"internet_access_enabled"`
 	IsNAT                                         bool                            `json:"is_nat"`
 	L2TpAllowWeakCiphers                          bool                            `json:"l2tp_allow_weak_ciphers"`
-	L2TpInterface                                 string                          `json:"l2tp_interface,omitempty"`    // wan|wan2
+	L2TpInterface                                 string                          `json:"l2tp_interface,omitempty"`    // wan[2-9]?
 	L2TpLocalWANIP                                string                          `json:"l2tp_local_wan_ip,omitempty"` // ^any$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 	LocalPort                                     int                             `json:"local_port,omitempty"`        // ^([1-9][0-9]{0,3}|[1-5][0-9]{4}|[6][0-4][0-9]{3}|[6][5][0-4][0-9]{2}|[6][5][5][0-2][0-9]|[6][5][5][3][0-5])$
 	LteLanEnabled                                 bool                            `json:"lte_lan_enabled"`
@@ -149,7 +149,7 @@ type Network struct {
 	OpenVPNConfiguration                          string                          `json:"openvpn_configuration,omitempty"`
 	OpenVPNConfigurationFilename                  string                          `json:"openvpn_configuration_filename,omitempty"`
 	OpenVPNEncryptionCipher                       string                          `json:"openvpn_encryption_cipher,omitempty"` // AES_256_GCM|AES_256_CBC|BF_CBC
-	OpenVPNInterface                              string                          `json:"openvpn_interface,omitempty"`         // wan|wan2
+	OpenVPNInterface                              string                          `json:"openvpn_interface,omitempty"`         // wan[2-9]?
 	OpenVPNLocalAddress                           string                          `json:"openvpn_local_address,omitempty"`     // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 	OpenVPNLocalPort                              int                             `json:"openvpn_local_port,omitempty"`        // ^([1-9][0-9]{0,3}|[1-5][0-9]{4}|[6][0-4][0-9]{3}|[6][5][0-4][0-9]{2}|[6][5][5][0-2][0-9]|[6][5][5][3][0-5])$
 	OpenVPNLocalWANIP                             string                          `json:"openvpn_local_wan_ip,omitempty"`      // ^any$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
@@ -202,14 +202,19 @@ type Network struct {
 	VrrpVrid                                      int                             `json:"vrrp_vrid,omitempty"`          // [1-9]|[1-9][0-9]
 	WANDHCPCos                                    int                             `json:"wan_dhcp_cos,omitempty"`       // [0-7]|^$
 	WANDHCPOptions                                []NetworkWANDHCPOptions         `json:"wan_dhcp_options,omitempty"`
+	WANDHCPv6Cos                                  int                             `json:"wan_dhcpv6_cos,omitempty"` // [0-7]|^$
+	WANDHCPv6Options                              []NetworkWANDHCPv6Options       `json:"wan_dhcpv6_options,omitempty"`
 	WANDHCPv6PDSize                               int                             `json:"wan_dhcpv6_pd_size,omitempty"` // ^(4[89]|5[0-9]|6[0-4])$|^$
+	WANDHCPv6PDSizeAuto                           bool                            `json:"wan_dhcpv6_pd_size_auto"`
 	WANDNS1                                       string                          `json:"wan_dns1"`                     // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$
 	WANDNS2                                       string                          `json:"wan_dns2"`                     // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$
 	WANDNS3                                       string                          `json:"wan_dns3"`                     // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$
 	WANDNS4                                       string                          `json:"wan_dns4"`                     // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$
 	WANDNSPreference                              string                          `json:"wan_dns_preference,omitempty"` // auto|manual
 	WANDsliteRemoteHost                           string                          `json:"wan_dslite_remote_host,omitempty"`
+	WANDsliteRemoteHostAuto                       bool                            `json:"wan_dslite_remote_host_auto"`
 	WANEgressQOS                                  int                             `json:"wan_egress_qos,omitempty"`          // [1-7]|^$
+	WANFailoverPriority                           int                             `json:"wan_failover_priority,omitempty"`   // [1-9]
 	WANGateway                                    string                          `json:"wan_gateway,omitempty"`             // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 	WANGatewayV6                                  string                          `json:"wan_gateway_v6"`                    // ^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$|^$
 	WANIP                                         string                          `json:"wan_ip,omitempty"`                  // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
@@ -221,15 +226,16 @@ type Network struct {
 	WANLoadBalanceType                            string                          `json:"wan_load_balance_type,omitempty"`   // failover-only|weighted
 	WANLoadBalanceWeight                          int                             `json:"wan_load_balance_weight,omitempty"` // ^$|[1-9]|[1-9][0-9]
 	WANNetmask                                    string                          `json:"wan_netmask,omitempty"`             // ^((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(((0|128|192|224|240|248|252|254)\.0\.0)|(255\.(((0|128|192|224|240|248|252|254)\.0)|255\.(0|128|192|224|240|248|252|254)))))$
-	WANNetworkGroup                               string                          `json:"wan_networkgroup,omitempty"`        // WAN[2]?|WAN_LTE_FAILOVER
+	WANNetworkGroup                               string                          `json:"wan_networkgroup,omitempty"`        // WAN[2-9]?|WAN_LTE_FAILOVER
 	WANPppoePasswordEnabled                       bool                            `json:"wan_pppoe_password_enabled"`
 	WANPppoeUsernameEnabled                       bool                            `json:"wan_pppoe_username_enabled"`
 	WANPrefixlen                                  int                             `json:"wan_prefixlen,omitempty"` // ^([1-9]|[1-8][0-9]|9[0-9]|1[01][0-9]|12[0-8])$|^$
 	WANProviderCapabilities                       NetworkWANProviderCapabilities  `json:"wan_provider_capabilities,omitempty"`
+	WANSla                                        string                          `json:"wan_sla,omitempty"`
 	WANSmartqDownRate                             int                             `json:"wan_smartq_down_rate,omitempty"` // [0-9]{1,6}|1000000
 	WANSmartqEnabled                              bool                            `json:"wan_smartq_enabled"`
 	WANSmartqUpRate                               int                             `json:"wan_smartq_up_rate,omitempty"` // [0-9]{1,6}|1000000
-	WANType                                       string                          `json:"wan_type,omitempty"`           // disabled|dhcp|static|pppoe|dslite
+	WANType                                       string                          `json:"wan_type,omitempty"`           // disabled|dhcp|static|pppoe|dslite|map-e,hubspoke|map-e,jpix|map-e,ntt|dslite-over-pppoe
 	WANTypeV6                                     string                          `json:"wan_type_v6,omitempty"`        // disabled|slaac|dhcpv6|static
 	WANUsername                                   string                          `json:"wan_username"`                 // [^"' ]+|^$
 	WANVLAN                                       int                             `json:"wan_vlan,omitempty"`           // [0-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|409[0-4]|^$
@@ -242,7 +248,7 @@ type Network struct {
 	WireguardClientPeerPublicKey                  string                          `json:"wireguard_client_peer_public_key,omitempty"`
 	WireguardClientPresharedKey                   string                          `json:"wireguard_client_preshared_key,omitempty"`
 	WireguardClientPresharedKeyEnabled            bool                            `json:"wireguard_client_preshared_key_enabled"`
-	WireguardInterface                            string                          `json:"wireguard_interface,omitempty"`    // wan|wan2
+	WireguardInterface                            string                          `json:"wireguard_interface,omitempty"`    // wan[2-9]?
 	WireguardLocalWANIP                           string                          `json:"wireguard_local_wan_ip,omitempty"` // ^any$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 	WireguardPublicKey                            string                          `json:"wireguard_public_key,omitempty"`
 	XAuthKey                                      string                          `json:"x_auth_key,omitempty"`
@@ -288,8 +294,10 @@ func (dst *Network) UnmarshalJSON(b []byte) error {
 		VLAN                           emptyStringInt `json:"vlan"`
 		VrrpVrid                       emptyStringInt `json:"vrrp_vrid"`
 		WANDHCPCos                     emptyStringInt `json:"wan_dhcp_cos"`
+		WANDHCPv6Cos                   emptyStringInt `json:"wan_dhcpv6_cos"`
 		WANDHCPv6PDSize                emptyStringInt `json:"wan_dhcpv6_pd_size"`
 		WANEgressQOS                   emptyStringInt `json:"wan_egress_qos"`
+		WANFailoverPriority            emptyStringInt `json:"wan_failover_priority"`
 		WANLoadBalanceWeight           emptyStringInt `json:"wan_load_balance_weight"`
 		WANPrefixlen                   emptyStringInt `json:"wan_prefixlen"`
 		WANSmartqDownRate              emptyStringInt `json:"wan_smartq_down_rate"`
@@ -330,8 +338,10 @@ func (dst *Network) UnmarshalJSON(b []byte) error {
 	dst.VLAN = int(aux.VLAN)
 	dst.VrrpVrid = int(aux.VrrpVrid)
 	dst.WANDHCPCos = int(aux.WANDHCPCos)
+	dst.WANDHCPv6Cos = int(aux.WANDHCPv6Cos)
 	dst.WANDHCPv6PDSize = int(aux.WANDHCPv6PDSize)
 	dst.WANEgressQOS = int(aux.WANEgressQOS)
+	dst.WANFailoverPriority = int(aux.WANFailoverPriority)
 	dst.WANLoadBalanceWeight = int(aux.WANLoadBalanceWeight)
 	dst.WANPrefixlen = int(aux.WANPrefixlen)
 	dst.WANSmartqDownRate = int(aux.WANSmartqDownRate)
@@ -367,7 +377,7 @@ type NetworkNATOutboundIPAddresses struct {
 	IPAddress       string   `json:"ip_address"`                  // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$
 	IPAddressPool   []string `json:"ip_address_pool,omitempty"`   // ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 	Mode            string   `json:"mode,omitempty"`              // all|ip_address|ip_address_pool
-	WANNetworkGroup string   `json:"wan_network_group,omitempty"` // WAN|WAN2
+	WANNetworkGroup string   `json:"wan_network_group,omitempty"` // WAN[2-9]?
 }
 
 func (dst *NetworkNATOutboundIPAddresses) UnmarshalJSON(b []byte) error {
@@ -393,6 +403,30 @@ type NetworkWANDHCPOptions struct {
 
 func (dst *NetworkWANDHCPOptions) UnmarshalJSON(b []byte) error {
 	type Alias NetworkWANDHCPOptions
+	aux := &struct {
+		OptionNumber emptyStringInt `json:"optionNumber"`
+
+		*Alias
+	}{
+		Alias: (*Alias)(dst),
+	}
+
+	err := json.Unmarshal(b, &aux)
+	if err != nil {
+		return fmt.Errorf("unable to unmarshal alias: %w", err)
+	}
+	dst.OptionNumber = int(aux.OptionNumber)
+
+	return nil
+}
+
+type NetworkWANDHCPv6Options struct {
+	OptionNumber int    `json:"optionNumber,omitempty"` // (1|11|15|16|17)
+	Value        string `json:"value,omitempty"`
+}
+
+func (dst *NetworkWANDHCPv6Options) UnmarshalJSON(b []byte) error {
+	type Alias NetworkWANDHCPv6Options
 	aux := &struct {
 		OptionNumber emptyStringInt `json:"optionNumber"`
 
